@@ -20,7 +20,7 @@ export class ProductVariantService {
     private readonly productRepo: Repository<Product>,
     @InjectRepository(ProductVariant)
     private readonly productVariantRepo: Repository<ProductVariant>,
-    private readonly productService: ProductService,
+    // private readonly productService: ProductService,
     private readonly colorService: ColorService,
     private readonly materialService: MaterialService,
   ) { }
