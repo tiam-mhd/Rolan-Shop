@@ -11,15 +11,18 @@ import { ColorModule } from '../color/color.module';
 import { MaterialModule } from '../material/material.module';
 import { Color } from '../color/entities/color.entity';
 import { Material } from '../material/entities/material.entity';
+import { ColorService } from '../color/services/color.service';
+import { CategoryService } from '../category/services/category.service';
+import { Category } from '../category/entities/category.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Product, ProductVariant, Color, Material]),
+    TypeOrmModule.forFeature([Product, ProductVariant, Color, Material,Category]),
 
     ColorModule,
     MaterialModule,
   ],
   controllers: [ProductController, ProductVariantController],
-  providers: [ProductService, ProductVariantService, ProductService, ProductVariantService,],
+  providers: [ProductService, ProductVariantService, ProductService, ProductVariantService, ColorService, CategoryService],
 })
 export class ProductModule { }
