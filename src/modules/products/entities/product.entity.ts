@@ -6,15 +6,17 @@ import {
 } from 'typeorm';
 import { ProductVariant } from './product-variant.entity';
 import { Category } from 'src/modules/category/entities/category.entity';
+import { IsNotEmpty } from 'class-validator';
 
 @Entity('products')
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-@ManyToOne(() => Category, (category) => category.products, { eager: true })
-@JoinColumn()
-category: Category;
+  @ManyToOne(() => Category, (category) => category.products, { eager: true })
+  @JoinColumn()
+  @IsNotEmpty()
+  category: Category;
 
   @Column()
   title: string;

@@ -1,11 +1,12 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Query } from '@nestjs/common';
 import { ProductService } from '../services/product.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { CreateProductVariantDto } from '../dtos/create-product-variant.dto';
+import { PaginationQueryDto } from 'src/common/dtos/pagination-query.dto';
 
 @Controller('products')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService) { }
 
   @Post()
   create(@Body() dto: CreateProductDto) {
@@ -25,5 +26,13 @@ export class ProductController {
   @Get(':id/variants')
   getVariants(@Param('id') id: string) {
     return this.productService.getProductVariants(id);
+  }
+
+  @Get('/by-category/:categoryId')
+  findByCategory(
+    @Param('categoryId') categoryId: string,
+    @Query() pagination: PaginationQueryDto,
+  ) {
+    return this.productService.findByCategory(categoryId, pagination);
   }
 }

@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Product } from  '../../products/entities/product.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, TreeParent, JoinColumn, TreeChildren, CreateDateColumn } from 'typeorm';
+import { Product } from '../../products/entities/product.entity';
 
 @Entity()
 export class Category {
@@ -9,6 +9,16 @@ export class Category {
   @Column()
   title: string;
 
+  @TreeParent()
+  @JoinColumn({ name: 'parentId' })
+  parent: Category;
+
+  @TreeChildren()
+  children: Category[];
+
   @OneToMany(() => Product, (product) => product.category)
   products: Product[];
+
+  @CreateDateColumn()
+  createdAt: Date;
 }
